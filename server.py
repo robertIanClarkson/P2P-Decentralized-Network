@@ -55,8 +55,11 @@ class Server(object):
 
     # main server logic
     def run(self):
+        print("MAYBE BINDED")
         self._bind()
+        print("BINDED")
         self._listen()
+        print("listen")
         self._accept_clients()
 
 # if __name__ == '__main__':
