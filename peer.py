@@ -1,8 +1,9 @@
+from torrent import Torrent
 from client import Client
 from server import Server
 from tracker import Tracker
 from config import Config
-from downloader import downloader
+from downloader import Downloader
 from threading import Thread
 import uuid
 
@@ -32,10 +33,11 @@ class Peer(Server):
         Class constructor
         :param server_ip_address: used when need to use the ip assigned by LAN
         """
-        Server.__init__(self, server_ip_address, self.SERVER_PORT)  # inherits methods from the server
+        self.server = Server(server_ip_address, self.SERVER_PORT)  # inherits methods from the server
         self.server_ip_address = server_ip_address
         self.id = uuid.uuid4()  # creates unique id for the peer
         self.role = role
+        self.torrent = Torrent('age.torrent')
 
     def run_server(self):
         """
@@ -44,9 +46,9 @@ class Peer(Server):
         """
         try:
             # must thread the server, otherwise it will block the main thread
-            Thread(target=self.run, daemon=False).start()
+            Thread(target=self.server.run, daemon=False).start()
         except Exception as error:
-            print(error)  # server failed to run
+            print(f"run_server: {error}")  # server failed to run
 
     # noinspection PyMethodMayBeStatic
     def _connect_to_peer(self, client_port_to_bind, peer_ip_address, peer_port=5000):
@@ -103,11 +105,26 @@ class Peer(Server):
                 # wasting ports in the range of ports assigned if the client connection fails.
                 client_port += 1
 
+    def run_tracker(self, announce=True):
+        """
+        Starts a threaded tracker
+        :param announce: True if this is the first announce in this network
+        :return: VOID
+        """
+        try:
+            self.tracker = Tracker(self.server, self.torrent, announce)
+            Thread(target=self.tracker.run, daemon=False).start()
+            print("(!) Tracker running.....")
+        except Exception as error:
+            print(f"run_tracker: {error}")  # server failed to run
+        
+
 
 # testing
 peer = Peer(role='peer')
 print("Peer: " + str(peer.id) + " running its server: ")
 peer.run_server()
+peer.run_tracker()
 #print("Peer: " + str(peer.id) + " running its clients: ")
 # Two ways of testing this:
 #  Locally (same machine):
@@ -116,9 +133,9 @@ peer.run_server()
 #  Using different machines
 #      1. Run two peers in different machines.
 #      2. Run a peer in this machine.
-if peer.role == peer.LEECHER or peer.role == peer.PEER:
-    peer_ips = ['127.0.0.1/4998', '127.0.0.1/4999']  # this list will be sent by the tracker in your P2P assignment
-    peer.connect(peer_ips)
+# if peer.role == peer.LEECHER or peer.role == peer.PEER:
+#     peer_ips = ['127.0.0.1/4998', '127.0.0.1/4999']  # this list will be sent by the tracker in your P2P assignment
+#     peer.connect(peer_ips)
 
 """ Output running this in the same machine """
 # Peer: 6d223864-9cd7-4327-ad02-7856d636af66 running its server:

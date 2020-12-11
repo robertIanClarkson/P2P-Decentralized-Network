@@ -1,6 +1,6 @@
 import torrent_parser as tp
 from config import Config
-from torrent import Torrent
+# from torrent import Torrent
 
 import hashlib
 
