@@ -179,7 +179,7 @@ class Tracker:
         return bc.decode(bencoded_message)
  
 
-    def run(self, start_with_broadcast=False):
+    def run(self, start_with_broadcast=True):
         # start listening
         threading.Thread(target=self.broadcast_listener).start()
 
