@@ -38,7 +38,21 @@ class Uploader:
         return data
 
     def run(self):
+        # client ID
         self.send(self.client_id)
 
+        # test data
         data = self.receive();
         print(data)
+
+        # main logic
+
+        # while True:
+        #     data = receive
+        #     piece = findPiece(data)
+        #     send(piece)
+
+        #     if uploadComplete:
+        #         break
+
+        # print "File has been fully uploaded!"

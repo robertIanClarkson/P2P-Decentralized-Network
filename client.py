@@ -41,13 +41,19 @@ class Client(object):
     def run(self):
         receiveData = self.receive()
 
+        # client ID
         print(receiveData)
+
+        # test data
         self.send("HELLO")
 
-        # RAMY LOOK AT THIS SPICY SNIPPET
+        # main logic
+
         # downloader = Downloader()
-        
+
         # while (downloader.interested):
         #     downloader.downloadNextPiece
 
         # downloader.compileAllPieces
+
+        # print("File has been fully downloaded")
