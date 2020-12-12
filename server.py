@@ -1,7 +1,6 @@
 from builtins import object
 import socket
 from threading import Thread
-from client_handler import ClientHandler
 from uploader import Uploader
 
 # Robert's Server from TCP Project
