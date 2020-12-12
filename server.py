@@ -24,7 +24,7 @@ class Server(object):
 
     def _listen(self):
         self.serversocket.listen(self.MAX_NUM_CONN)
-        print("Server listening at {host}/{port}".format(host=self.host, port=self.port))
+        print("(S) Server listening at {host}/{port}".format(host=self.host, port=self.port))
 
     def _accept_clients(self):
         while True:
@@ -36,30 +36,28 @@ class Server(object):
 
     # main thread entry point
     def client_handler_thread(self, clientsocket, address):
+        print("(S) Just threaded a new client")
         # create the client handler
         # client_handler = ClientHandler(self, clientsocket, address)
 
         # # init the CH
         # client_handler.init()
 
-        try:
-            # run the main logic
-            client_handler.run()
-        except EOFError as err:
-            client_id = client_handler.client_id
-            print("(x) Client Handler Thread Error --> Client ({name}:{client_id}) left abruptly".format(name=self.names[client_id], client_id=client_id))
-            client_handler.delete_client_data()
-        except Exception as err:
-            print("(x) Client Handler Thread Error --> {err}".format(err=err))
-            client_handler.delete_client_data()
+        # try:
+        #     # run the main logic
+        #     client_handler.run()
+        # except EOFError as err:
+        #     client_id = client_handler.client_id
+        #     print("(x) Client Handler Thread Error --> Client ({name}:{client_id}) left abruptly".format(name=self.names[client_id], client_id=client_id))
+        #     client_handler.delete_client_data()
+        # except Exception as err:
+        #     print("(x) Client Handler Thread Error --> {err}".format(err=err))
+        #     client_handler.delete_client_data()
 
     # main server logic
     def run(self):
-        print("MAYBE BINDED")
         self._bind()
-        print("BINDED")
         self._listen()
-        print("listen")
         self._accept_clients()
 
 # if __name__ == '__main__':

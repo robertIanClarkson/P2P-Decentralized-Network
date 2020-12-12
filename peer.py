@@ -47,6 +47,7 @@ class Peer(Server):
         try:
             # must thread the server, otherwise it will block the main thread
             Thread(target=self.server.run, daemon=False).start()
+            print("(P) Server running.....")
         except Exception as error:
             print(f"run_server: {error}")  # server failed to run
 
@@ -62,8 +63,8 @@ class Peer(Server):
         client = Client()
         try:
             # binds the client to the ip address assigned by LAN
-            client.bind('0.0.0.0', client_port_to_bind)  # note: when you bind, the port bound will be the client id
-            Thread(target=client.connect_to_server, args=(peer_ip_address, peer_port)).start()  # threads server
+            # client.bind('0.0.0.0', client_port_to_bind)  # note: when you bind, the port bound will be the client id
+            Thread(target=client.connect, args=(peer_ip_address, peer_port)).start()  # threads server
             return True
         except Exception as error:
             print(error)  # client failed to bind or connect to server
@@ -112,9 +113,9 @@ class Peer(Server):
         :return: VOID
         """
         try:
-            self.tracker = Tracker(self.server, self.torrent, announce)
+            self.tracker = Tracker(self, self.server, self.torrent, announce)
             Thread(target=self.tracker.run, daemon=False).start()
-            print("(!) Tracker running.....")
+            print("(P) Tracker running.....")
         except Exception as error:
             print(f"run_tracker: {error}")  # server failed to run
         
@@ -122,7 +123,7 @@ class Peer(Server):
 
 # testing
 peer = Peer(role='peer')
-print("Peer: " + str(peer.id) + " running its server: ")
+print("(P) Peer: " + str(peer.id) + " running its server: ")
 peer.run_server()
 peer.run_tracker()
 #print("Peer: " + str(peer.id) + " running its clients: ")
