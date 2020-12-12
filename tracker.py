@@ -77,6 +77,12 @@ class Tracker:
 
     #############################################################
     def process_query(self, data, ip, port):
+        # make sure we arent talking to ourself
+        if str(data['id']) == str(self._peer.id):
+            print("(T) got message from myself")
+            return
+
+        # main logic
         if data['type'] == 'query':
             if data['action'] == 'ping':
                 is_new_peer = self.addPeer(data['id'])
@@ -135,9 +141,6 @@ class Tracker:
                     print(f'(T) Peer: {sender_id} does not have the file ')
                     # dont worry about it for right now
 
-
-
-
     #############################################################
 
     def addPeer(self, new_peer_id):
@@ -179,6 +182,12 @@ class Tracker:
     def run(self, start_with_broadcast=True):
         # start listening
         threading.Thread(target=self.broadcast_listener).start()
+
+        me = {
+            'id': str(self._peer.id)
+        }
+
+        self.peers.append(me)
 
         # announce me
         message = {
