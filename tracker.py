@@ -175,7 +175,7 @@ class Tracker:
         :param bencoded_message: the bencoded message
         :return: the original message
         """
-        # bc = bencodepy.Bencode(encoding='utf-8')
+        bc = bencodepy.Bencode(encoding='utf-8')
         return bc.decode(bencoded_message)
  
 
