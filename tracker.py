@@ -94,7 +94,7 @@ class Tracker:
                         'action': 'ping',
                         'id': str(self._peer.id)
                     }
-                    self.send_udp_message(message, ip, port)
+                    self.send_udp_message(message, ip, self.DHT_PORT)
                 
             elif data['action'] == 'info_hash':
                 # someone is asking for my info hash --> ok
@@ -116,7 +116,7 @@ class Tracker:
                         'id': str(self._peer.id),
                         'res': 'no'
                     }
-                self.send_udp_message(message, ip, port)
+                self.send_udp_message(message, ip, self.DHT_PORT)
         elif data['type'] == 'response':
             if data['action'] == 'ping':
                 is_new_peer = self.addPeer(data['id'])
@@ -129,7 +129,7 @@ class Tracker:
                     'id': str(self._peer.id),
                     'info_hash': info_hash  
                 }
-                self.send_udp_message(message, ip, port)
+                self.send_udp_message(message, ip, self.DHT_PORT)
             elif data['action'] == 'info_hash':
                 sender_id = data['id']
                 if data['res'] == 'yes':
