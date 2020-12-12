@@ -175,7 +175,7 @@ class Tracker:
         :param bencoded_message: the bencoded message
         :return: the original message
         """
-        bc = bencodepy.Bencode(encoding='utf-8')
+        # bc = bencodepy.Bencode(encoding='utf-8')
         return bc.decode(bencoded_message)
  
 
@@ -189,12 +189,13 @@ class Tracker:
 
         self.peers.append(me)
 
-        # announce me
-        message = {
-            'type': 'query',
-            'action': 'ping',
-            'id': str(self._peer.id)
-        }
-        self.broadcast(message)
+        if start_with_broadcast:
+            # announce me
+            message = {
+                'type': 'query',
+                'action': 'ping',
+                'id': str(self._peer.id)
+            }
+            self.broadcast(message)
 
 
