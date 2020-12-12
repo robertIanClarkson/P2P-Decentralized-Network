@@ -2,6 +2,7 @@ from builtins import object
 import socket
 from threading import Thread
 from client_handler import ClientHandler
+from uploader import Uploader
 
 # Robert's Server from TCP Project
 class Server(object):
@@ -33,16 +34,16 @@ class Server(object):
             clienthandler, addr = self.serversocket.accept()
 
             # start a new thread
-            Thread(target=self.client_handler_thread, args=(clienthandler, addr), daemon=True).start()
+            Thread(target=self.uploader_thread, args=(clienthandler, addr), daemon=True).start()
 
     # main thread entry point
-    def client_handler_thread(self, clientsocket, address):
+    def uploader_thread(self, clientsocket, address):
         print("(S) Just threaded a new client")
-        # create the client handler
-        client_handler = ClientHandler(self, clientsocket, address)
+        # create the uploader
+        uploader = Uploader(self, clientsocket, address)
+        uploader.run()
 
-        # init the CH
-        client_handler.run()
+
 
     # main server logic
     def run(self):
