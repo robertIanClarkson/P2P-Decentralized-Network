@@ -2,6 +2,7 @@ from torrent import Torrent
 from client import Client
 from server import Server
 from tracker import Tracker
+from torrent import *
 from config import Config
 from downloader import Downloader
 from threading import Thread
@@ -37,7 +38,8 @@ class Peer(Server):
         self.server_ip_address = server_ip_address
         self.id = uuid.uuid4()  # creates unique id for the peer
         self.role = role
-        self.torrent = Torrent('age.torrent')
+        self.torrent = Torrent("age.torrent")
+        self.tracker = None
 
     def run_server(self):
         """
