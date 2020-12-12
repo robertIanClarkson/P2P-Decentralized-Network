@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import socket
 import pickle
+from downloader import Downloader
 
 # Robert's Client from TCP Project
 class Client(object):
@@ -42,3 +43,11 @@ class Client(object):
 
         print(receiveData)
         self.send("HELLO")
+
+        # RAMY LOOK AT THIS SPICY SNIPPET
+        # downloader = Downloader()
+        
+        # while (downloader.interested):
+        #     downloader.downloadNextPiece
+
+        # downloader.compileAllPieces

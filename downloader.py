@@ -16,4 +16,3 @@ class Downloader:
         self.file_manager = FileManager(self.torrent, self.peer_id)
         self.bitfield_lock = threading.Lock()
         self.file_lock = threading.Lock()
-
