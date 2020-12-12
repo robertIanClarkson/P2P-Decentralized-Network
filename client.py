@@ -18,7 +18,7 @@ class Client(object):
     # connect to the server
     def connect(self, host="127.0.0.1", port=13000):
         self.clientSocket.connect((host, port))  # connect is done here
-        print("(C)Successfully connected to server at {host}/{port}".format(host=host, port=port))
+        print("(C) Successfully connected to server at {host}/{port}".format(host=host, port=port))
 
     # send data from client to CH
     def send(self, data):

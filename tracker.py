@@ -26,7 +26,6 @@ class Tracker:
         :param torrent:
         :param announce:
         """
-        self._id = int(uuid.uuid1())
         self._peer = peer
         self._server = server
         self._torrent = torrent
@@ -48,14 +47,13 @@ class Tracker:
             # print(f'Broadcast: {message}')
             encoded_message = self.encode(message)
             self.udp_socket.sendto(encoded_message, ('<broadcast>', self.DHT_PORT))
-            print(f'(T) Broadcasting...')
+            print(f'(T) Broadcasting --> {message}')
         except socket.error as error:
             print(f'(T) Error broadcasting on port ({self.DHT_PORT}) --> {err}')
 
     def send_udp_message(self, message, ip, port):
         try:
-            print(f'(T) sent UDP message --> {ip}:{port}')
-            self.printQuery(message)
+            print(f'(T) sent UDP message --> {ip} | {port} | {message}')
             new_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             message = self.encode(message)
             new_socket.sendto(message, (ip, port))
@@ -71,7 +69,7 @@ class Tracker:
                     data = self.decode(raw_data)
                     ip_sender = sender_ip_and_port[0]
                     port_sender = sender_ip_and_port[1]
-                    print(f'(T) data recieved')
+                    print(f'(T) data recieved --> {ip_sender} | {port_sender} | {data}')
                     # print(f'data recieved by sender')
                     self.process_query(data, ip_sender, port_sender)
         except Exception as err:
@@ -79,18 +77,71 @@ class Tracker:
 
     #############################################################
     def process_query(self, data, ip, port):
-        print(f"(T) {ip} | {port} | {data}")
-        is_new_peer = self.addPeer(data, ip)
-        if is_new_peer: # connect to its server
-            print('(T) Added a new Peer')
-            self._peer._connect_to_peer(data['port'], data['ip'], data['port'])
+        if data['type'] == 'query':
+            if data['action'] == 'ping':
+                is_new_peer = self.addPeer(data['id'])
+                # THIS IF STATEMENT WILL STOP YOU FROM QUERYING YOURSELF
+                if is_new_peer: # connect to its server
+                    print('(T) Added a new Peer')
+                    message = {
+                        'type': 'response',
+                        'action': 'ping',
+                        'id': str(self._peer.id)
+                    }
+                    self.send_udp_message(message, ip, port)
+                
+            elif data['action'] == 'info_hash':
+                # someone is asking for my info hash --> ok
+                my_info_hash = self._torrent.info_hash()
+                sender_info_hash = data['info_hash']
+                if my_info_hash == sender_info_hash: # I have the file they want
+                    message = {
+                        'type': 'response',
+                        'action': 'info_hash',
+                        'id': str(self._peer.id),
+                        'res': 'yes', 
+                        'ip': self._server.host,
+                        'port': self._server.port
+                    }
+                else:
+                    message = {
+                        'type': 'response',
+                        'action': 'info_hash',
+                        'id': str(self._peer.id),
+                        'res': 'no'
+                    }
+                self.send_udp_message(message, ip, port)
+        elif data['type'] == 'response':
+            if data['action'] == 'ping':
+                is_new_peer = self.addPeer(data['id'])
+                
+                # ask if they have file
+                info_hash = self._torrent.info_hash()
+                message = {
+                    'type': 'query',
+                    'action': 'info_hash',
+                    'id': str(self._peer.id),
+                    'info_hash': info_hash  
+                }
+                self.send_udp_message(message, ip, port)
+            elif data['action'] == 'info_hash':
+                sender_id = data['id']
+                if data['res'] == 'yes':
+                    print(f'(T) Peer: {sender_id} has the file')
+                    # the peer with data['id'] has the file we want
+                    # connect to its server using data['ip'] & data['port']
+                    self._peer._connect_to_peer(data['port'], data['ip'], data['port'])
+                else:
+                    print(f'(T) Peer: {sender_id} does not have the file ')
+                    # dont worry about it for right now
+
+
+
+
     #############################################################
 
-    def addPeer(self, data, new_peer_ip):
-        new_peer_id = data['id']
-        new_peer_port = data['port']
-
-        # check to see if we have peer
+    def addPeer(self, new_peer_id):
+          # check to see if we have peer
         for peer in self.peers:
             if peer['id'] == new_peer_id:
                 print(f'(T) Peer already tracked --> id: {new_peer_id}')
@@ -99,8 +150,8 @@ class Tracker:
         # we dont have peer
         peer = {
             'id': new_peer_id,
-            'ip': new_peer_ip,
-            'port': new_peer_port,
+            'ip': None,
+            'port': None,
             'connected': False
         }
         self.peers.append(peer)
@@ -131,9 +182,9 @@ class Tracker:
 
         # announce me
         message = {
-            'id': self._id,
-            'ip': self._server.host,
-            'port': self._server.port
+            'type': 'query',
+            'action': 'ping',
+            'id': str(self._peer.id)
         }
         self.broadcast(message)
 
