@@ -20,10 +20,12 @@ class Client(object):
         self.clientSocket.connect((host, port))  # connect is done here
         print("(C) Successfully connected to server at {host}/{port}".format(host=host, port=port))
 
+        self.run()
+
     # send data from client to CH
     def send(self, data):
         serialized_data = pickle.dumps(data)
-        self.clientSocket.send(serialized_data)\
+        self.clientSocket.send(serialized_data)
 
     # receive data from CH
     def receive(self, MAX_BUFFER_SIZE=8192):
@@ -38,17 +40,5 @@ class Client(object):
     def run(self):
         receiveData = self.receive()
 
-        # get the file
-        newFile = open(receiveData['file_name'], 'wb')
-        newFile.write(receiveData['file_content'])
-
-        # get the menu object
-        receiveData = self.receive()
-        self.menu = receiveData['menu']
-        self.menu.set_client(self)
-
-        # communicate
-        while True:
-            self.menu.show_menu()
-            self.menu.process_user_data()
-
+        print(receiveData)
+        self.send("HELLO")

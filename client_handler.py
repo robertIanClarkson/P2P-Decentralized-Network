@@ -11,13 +11,6 @@ class ClientHandler(object):
         self.server = server_instance  # needed to use & alter <clients, names, rooms>
         self.clientsocket = clientsocket  # needed for sending and receiving
 
-    # main listening logic for incoming messages
-    def process_options(self):
-        # break out via option 6
-        while True:
-            # get data from client
-            data = self.receive()
-
     # send method for this thread
     def send(self, data):
         serialized_data = pickle.dumps(data)
@@ -31,4 +24,7 @@ class ClientHandler(object):
 
     # main process
     def run(self):
-        self.process_options()
+        self.send(self.client_id)
+
+        data = self.receive();
+        print(data)
