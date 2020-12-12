@@ -5,6 +5,7 @@ from tracker import Tracker
 from config import Config
 from downloader import Downloader
 from threading import Thread
+import socket
 import uuid
 
 # CSC645 Computer Networks
@@ -28,13 +29,13 @@ class Peer(Server):
     LEECHER = 'leecher'
     SEEDER = 'seeder'
 
-    def __init__(self, role=SEEDER, server_ip_address='127.0.0.1'):
+    def __init__(self, role=SEEDER):
         """
         Class constructor
-        :param server_ip_address: used when need to use the ip assigned by LAN
+        :param self._ip: used when need to use the ip assigned by LAN
         """
-        self.server = Server(server_ip_address, self.SERVER_PORT)  # inherits methods from the server
-        self.server_ip_address = server_ip_address
+        self._ip = socket.gethostbyname(socket.gethostname());
+        self.server = Server(self._ip, self.SERVER_PORT)  # inherits methods from the server
         self.id = uuid.uuid4()  # creates unique id for the peer
         self.role = role
         self.torrent = Torrent('age.torrent')

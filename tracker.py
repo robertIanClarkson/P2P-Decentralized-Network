@@ -26,7 +26,6 @@ class Tracker:
         :param torrent:
         :param announce:
         """
-        self._ip = socket.gethostbyname(socket.gethostname());
         self._peer = peer
         self._server = server
         self._torrent = torrent
@@ -107,7 +106,7 @@ class Tracker:
                         'action': 'info_hash',
                         'id': str(self._peer.id),
                         'res': 'yes', 
-                        'ip': self._ip,
+                        'ip': self._peer._ip,
                         'port': self._server.port
                     }
                 else:
