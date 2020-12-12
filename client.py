@@ -39,9 +39,8 @@ class Client(object):
         self.clientSocket.close()
 
     def run(self):
-        receiveData = self.receive()
-
         # client ID
+        receiveData = self.receive()
         print(receiveData)
 
         # test data
