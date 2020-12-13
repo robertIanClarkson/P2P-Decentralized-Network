@@ -129,7 +129,7 @@ class FileManager:
         :param piece:
         :return: VOID
         """
-        
+
         tempFile = open(self.DATA_FILE, "a")
         tempFile.write(piece)
         tempFile.close()
@@ -175,14 +175,14 @@ class FileManager:
         piecePointers = self.get_pointers(hash_info=self.torrent.info_hash(), piece_index=piece_index)
         tmpFile = open(self.TMP_FILE, mode="r")
         pointerLines = tmpFile.readlines()
+
+        print(pointerLines)
         
         for pointer in piecePointers:
             for line in pointerLines:
                 if pointer in line:
                     #we got a hit on a block we need
                     piece = piece + str(line.split('$$$')[1])[:-1]
-
-        print(len(piece))
 
         return piece
 
