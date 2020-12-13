@@ -144,7 +144,6 @@ class FileManager:
         tempFile = open(self.TMP_FILE, mode="r")
         lines = tempFile.readlines()
         pointers = []
-        block_index = 0
 
         for i in range(8):
             pointer = self.pointer(hash_info=hash_info,
@@ -153,8 +152,8 @@ class FileManager:
             for line in lines:
                 filePointer = line.split("$$$")[0]
                 if pointer in filePointer:
-                    print(pointer + str(":") + filePointer)
-                    print(str(piece_index) + ":" + str(block_index))
+                    # print(pointer + str(":") + filePointer)
+                    # print(str(piece_index) + ":" + str(i))
                     pointers.append(filePointer)
 
         # for line in lines:
