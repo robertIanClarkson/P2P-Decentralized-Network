@@ -151,6 +151,7 @@ class FileManager:
                                    piece_index=piece_index, block_index=i)
 
             for line in lines:
+                filePointer = line.split("$$$")[0]
                 if pointer in filePointer:
                     print(pointer + str(":") + filePointer)
                     print(str(piece_index) + ":" + str(block_index))
