@@ -106,7 +106,7 @@ class FileManager:
             hash_info=self.torrent.info_hash(), piece_index=piece_index, block_index=block_index)) + "$$$" + block + "\n"
 
         # write to the <path>
-        file = open(path, "w")
+        file = open(path, "w+")
         file.write(entry)
         file.close()
 
