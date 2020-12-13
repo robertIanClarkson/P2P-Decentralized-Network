@@ -51,7 +51,7 @@ class Client(object):
 
         # main logic
 
-        downloader = Downloader()
+        downloader = Downloader(torrent=self.torrent)
 
         downloader.requestBlock(self, self.torrent.info_hash(), 0, 0)
 
