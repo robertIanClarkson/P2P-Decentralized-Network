@@ -88,7 +88,7 @@ class FileManager:
             
         return piece
 
-    def flush_block(self, piece_index, block_index, block, path="resources/tmp/blocks/blocks.data"):
+    def flush_block(self, piece_index, block_index, block, path="resources/tmp/ages.tmp"):
         """
         TODO: writes a block in blocks.data
               Each entry in routing table has the following format:
@@ -103,10 +103,10 @@ class FileManager:
         :return: VOID
         """
         entry = str(self.pointer(
-            hash_info=self.torrent.info_hash(), piece_index=piece_index, block_index=block_index)) + "$$$" + block
+            hash_info=self.torrent.info_hash(), piece_index=piece_index, block_index=block_index)) + "$$$" + block + "\n"
 
         # write to the <path>
-        file = open(path, "w", newline="\n")
+        file = open(path, "w")
         file.write("\n" + entry)
         file.close()
 
