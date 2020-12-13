@@ -4,5 +4,5 @@ a:
 	git push
 
 b: 
-	rm ./resources.tmp/age.tmp
-	rm ./resources.tmp/blocks/block.data
+	rm ./resources/tmp/age.tmp
+	rm ./resources/tmp/blocks/block.data
