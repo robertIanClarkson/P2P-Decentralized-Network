@@ -182,7 +182,7 @@ class FileManager:
             for line in pointerLines:
                 if pointer in line:
                     #we got a hit on a block we need
-                    piece += str(line.split('$$$')[1])
+                    piece = piece + str(line.split('$$$')[1])
 
         return piece
 
