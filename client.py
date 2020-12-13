@@ -53,7 +53,7 @@ class Client(object):
 
         downloader = Downloader(torrent=self.torrent)
 
-        for x in range(self.torrent.num_pieces()):
+        for x in range(self.torrent.num_pieces() - 1):
             for y in range(8):
                 downloader.requestBlock(self, self.torrent.info_hash(), x, y)
 
