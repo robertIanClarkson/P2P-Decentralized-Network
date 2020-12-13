@@ -8,3 +8,6 @@ b:
 
 c:
 	rm ./resources/tmp/blocks/blocks.data
+
+d:
+	python peer.py
