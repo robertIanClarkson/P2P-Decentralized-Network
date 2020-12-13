@@ -19,6 +19,7 @@ class Downloader:
 
         self.message = Message()
         self.message.init_bitfield(torrent.num_pieces())
+        print(torrent.num_pieces())
 
     def requestBlock(self, client, info_hash, piece_index, block_index):
         # request block
@@ -31,5 +32,3 @@ class Downloader:
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
         self.message.set_block_to_completed(data['piece_index'], data['block_index'])
-
-        print(self.message.get_bitfield())
