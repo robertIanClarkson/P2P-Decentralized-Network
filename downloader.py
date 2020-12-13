@@ -1,5 +1,6 @@
 import threading
 from file_manager import FileManager
+from message import *
 
 
 class Downloader:
