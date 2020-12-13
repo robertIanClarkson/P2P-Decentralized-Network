@@ -119,8 +119,7 @@ class FileManager:
         :return:
         """
         data = str(piece_index) + str(block_index) + hash_info
-        data_encoded = str.encode(data)
-        return str.encode(self.hash(data_encoded))
+        return data
 
     def flush_piece(self, piece_index, piece):
         """
