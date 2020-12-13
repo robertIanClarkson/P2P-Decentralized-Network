@@ -18,7 +18,7 @@ class Downloader:
         self.file_lock = threading.Lock()
 
         self.message = Message()
-        self.message.init_bitfield(torrent.num_pieces())
+        self.message.init_bitfield(torrent.num_pieces() * 8)
 
     def requestBlock(self, client, info_hash, piece_index, block_index):
         # request block
