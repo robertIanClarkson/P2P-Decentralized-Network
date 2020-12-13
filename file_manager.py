@@ -152,6 +152,8 @@ class FileManager:
 
             for line in lines:
                 if pointer in filePointer:
+                    print(pointer + str(":") + filePointer)
+                    print(str(piece_index) + ":" + str(block_index))
                     pointers.append(filePointer)
 
         # for line in lines:
