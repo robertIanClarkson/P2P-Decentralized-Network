@@ -223,9 +223,3 @@ class FileManager:
 
     def path_exist(self, path_to_file):
         return path.exists(path_to_file)
-
-
-if __name__ == "__main__":
-    torrent = Torrent("age.torrent")
-    fileManager = FileManager(torrent=torrent, peer_id="1234")
-    fileManager.get_pointers(hash_info=torrent.info_hash(), piece_index=0)
