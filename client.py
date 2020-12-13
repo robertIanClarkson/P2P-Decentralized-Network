@@ -56,6 +56,8 @@ class Client(object):
         while downloader.message.next_missing_piece() is not -1:
             while downloader.message.next_missing_block(downloader.message.next_missing_piece()) is not -1:
                 downloader.requestBlock(self, self.torrent.info_hash(), downloader.message.next_missing_piece(), downloader.message.next_missing_block(downloader.message.next_missing_piece()))
+                
+            construct block
 
         print("Yay you got a full file!")
 

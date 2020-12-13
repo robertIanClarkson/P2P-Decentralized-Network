@@ -10,6 +10,7 @@ class FileManager:
     It also creates pointers to routing table, as well as read and write blocks/pieces of data.
     """
     TMP_FILE = "resources/tmp/ages.tmp"
+    DATA_FILE = "resources/tmp/blocks/blocks.data"
 
     def __init__(self, torrent, peer_id):
         """
@@ -128,7 +129,7 @@ class FileManager:
         :param piece:
         :return: VOID
         """
-        tempFile = open(self.TMP_FILE, "wb")
+        tempFile = open(self.DATA_FILE, "a")
         tempFile.seek(self.piece_offset(piece_index=piece_index))
         tempFile.write(piece)
         tempFile.close()

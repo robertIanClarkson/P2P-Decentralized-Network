@@ -31,3 +31,8 @@ class Downloader:
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
         self.message.set_block_to_completed(data['piece_index'], data['block_index'])
+
+        if not self.message.is_piece_missing(data['piece_index']):
+            piece = self.file_manager.extract_piece(data['piece_index'])
+            self.file_manager.flush_piece(data['piece_index'], piece)
+            print("Wrote piece: " + data['piece_index'])
