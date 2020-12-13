@@ -148,9 +148,6 @@ class FileManager:
 
         for line in lines:
 
-            if (block_index == 8):
-                break
-
             pointer = self.pointer(hash_info=hash_info,
                                    piece_index=piece_index, block_index=block_index)
 
