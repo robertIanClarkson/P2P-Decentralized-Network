@@ -146,20 +146,30 @@ class FileManager:
         pointers = []
         block_index = 0
 
-        for line in lines:
-
+        for i in range(8):
             pointer = self.pointer(hash_info=hash_info,
-                                   piece_index=piece_index, block_index=block_index)
+                                   piece_index=piece_index, block_index=i)
 
-            filePointer = line.split("$$$")[0]
+            for line in lines:
+                if pointer in filePointer:
+                    pointers.append(filePointer)
 
-            print(str(piece_index) + ":" + str(block_index))
-            print(pointer + str(":") + filePointer)
+        # for line in lines:
+        #     pointer = self.pointer(hash_info=hash_info,
+        #                            piece_index=piece_index, block_index=block_index)
+        #     for i in range(8):
+        #         filePointer = line.split("$$$")[0]
+        #         if pointer in filePointer:
 
-            if pointer in filePointer:
-                pointers.append(filePointer)
 
-            block_index += 1
+
+        #     print(str(piece_index) + ":" + str(block_index))
+        #     print(pointer + str(":") + filePointer)
+
+        #     if pointer in filePointer:
+        #         pointers.append(filePointer)
+
+        #     block_index += 1
 
         tempFile.close()
 
