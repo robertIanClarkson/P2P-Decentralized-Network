@@ -176,7 +176,7 @@ class FileManager:
         tmpFile = open(self.TMP_FILE, mode="r")
         pointerLines = tmpFile.readlines()
 
-        print(pointerLines)
+        print(str(len(pointerLines)) + str(":") + str(len(piecePointers)))
         
         for pointer in piecePointers:
             for line in pointerLines:
