@@ -9,7 +9,7 @@ class FileManager:
     The file manager class handles writes and reads from tmp, original and routing table.
     It also creates pointers to routing table, as well as read and write blocks/pieces of data.
     """
-    TMP_FILE = "resources/tmp/ages.tmp"
+    TMP_FILE = "resources/tmp/age.tmp"
     DATA_FILE = "resources/tmp/blocks/blocks.data"
 
     def __init__(self, torrent, peer_id):
