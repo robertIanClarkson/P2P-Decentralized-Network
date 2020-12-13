@@ -120,8 +120,7 @@ class FileManager:
         :return:
         """
         data = str(piece_index) + str(block_index) + hash_info
-        hashed = str(data).encode() 
-        return hashed
+        return data
 
     def flush_piece(self, piece_index, piece):
         """
