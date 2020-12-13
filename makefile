@@ -5,4 +5,6 @@ a:
 
 b: 
 	rm ./resources/tmp/age.tmp
-	rm ./resources/tmp/blocks/block.data
+
+c:
+	rm ./resources/tmp/blocks/blocks.data
