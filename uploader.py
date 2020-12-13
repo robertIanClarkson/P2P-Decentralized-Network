@@ -51,15 +51,12 @@ class Uploader:
 
         # main logic
 
-        while True:
-            data = self.receive();
-            if not data:
-                continue
+        data = self.receive();
 
-            print(data)
-            block = self.file_manager.get_block(data['piece_index'], data['block_index'], 2048, "age.txt")
-            response = {"piece_index": data['piece_index'], "block_index": data['block_index'], "info_hash": data['info_hash'], "block": block};
-            self.send(response)
+        print(data)
+        block = self.file_manager.get_block(data['piece_index'], data['block_index'], 2048, "age.txt")
+        response = {"piece_index": data['piece_index'], "block_index": data['block_index'], "info_hash": data['info_hash'], "block": block};
+        self.send(response)
 
         # while True:
         #     data = receive

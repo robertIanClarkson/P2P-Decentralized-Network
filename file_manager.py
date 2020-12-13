@@ -102,8 +102,8 @@ class FileManager:
         :param block:
         :return: VOID
         """
-        entry = self.pointer(
-            hash_info=self.torrent.info_hash(), piece_index=piece_index, block_index=block_index) + "$$$" + block
+        entry = str(self.pointer(
+            hash_info=self.torrent.info_hash(), piece_index=piece_index, block_index=block_index)) + "$$$" + block
 
         # write to the <path>
         file = open(path, "wb", newline="\n")
