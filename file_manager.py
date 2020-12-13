@@ -107,7 +107,7 @@ class FileManager:
 
         # write to the <path>
         file = open(path, "w")
-        file.write("\n" + entry)
+        file.write(entry)
         file.close()
 
     def pointer(self, hash_info, piece_index, block_index):
