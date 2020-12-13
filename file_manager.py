@@ -88,7 +88,7 @@ class FileManager:
             
         return piece
 
-    def flush_block(self, piece_index, block_index, block, path="resources/tmp/ages.tmp"):
+    def flush_block(self, piece_index, block_index, block, path="resources/tmp/age.tmp"):
         """
         TODO: writes a block in blocks.data
               Each entry in routing table has the following format:
