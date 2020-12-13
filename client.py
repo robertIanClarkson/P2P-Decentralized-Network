@@ -2,6 +2,7 @@
 import socket
 import pickle
 from downloader import Downloader
+from torrent import *
 
 # Robert's Client from TCP Project
 class Client(object):
@@ -12,6 +13,8 @@ class Client(object):
         self.name = None
         self.clientid = 0
         self.menu = None
+
+        self.torrent = Torrent("age.torrent");
 
     def get_client_id(self):
         return self.clientid
@@ -48,7 +51,9 @@ class Client(object):
 
         # main logic
 
-        # downloader = Downloader()
+        downloader = Downloader()
+
+        downloader.requestBlock(self, self.torrent.info_hash(), 0, 0)
 
         # while (downloader.interested):
         #     downloader.downloadNextPiece

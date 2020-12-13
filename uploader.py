@@ -47,6 +47,12 @@ class Uploader:
 
         # main logic
 
+        while True:
+            data = self.receive();
+            if not data:
+                continue
+            print(data)
+
         # while True:
         #     data = receive
         #     piece = findPiece(data)
