@@ -51,6 +51,7 @@ class Uploader:
             data = self.receive();
             if not data:
                 continue
+                
             print(data)
 
         # while True:
