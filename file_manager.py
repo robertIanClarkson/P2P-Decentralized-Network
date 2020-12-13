@@ -173,7 +173,7 @@ class FileManager:
         :param piece_index:
         :return: the piece
         """
-        piece = []
+        piece = ""
         piecePointers = self.get_pointers(hash_info=self.torrent.info_hash(), piece_index=piece_index)
         tmpFile = open(self.TMP_FILE, mode="r")
         pointerLines = tmpFile.readlines()
@@ -182,10 +182,8 @@ class FileManager:
             for line in pointerLines:
                 if pointer in line:
                     #we got a hit on a block we need
-                    piece.append(line.split('$$$')[1])
+                    piece += line.split('$$$')[1]
 
-        print(piece)
-        print("".join(piece))
         return piece
 
     def piece_offset(self, piece_index):
