@@ -183,7 +183,7 @@ class FileManager:
                 if pointer in line:
                     #we got a hit on a block we need
                     piece.append(line.split('$$$')[1])
-        return piece
+        return "".join(piece)
 
     def piece_offset(self, piece_index):
         """
