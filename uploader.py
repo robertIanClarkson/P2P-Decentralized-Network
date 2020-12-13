@@ -51,7 +51,7 @@ class Uploader:
 
         # main logic
 
-        for x in range(5):
+        while True:
             data = self.receive();
 
             if not data:
