@@ -130,7 +130,6 @@ class FileManager:
         :return: VOID
         """
         tempFile = open(self.DATA_FILE, "a")
-        tempFile.seek(self.piece_offset(piece_index=piece_index))
         tempFile.write(piece)
         tempFile.close()
 
