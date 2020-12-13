@@ -53,9 +53,29 @@ class Client(object):
 
         downloader = Downloader(torrent=self.torrent)
 
-        for x in range(self.torrent.num_pieces() - 1):
-            for y in range(8):
-                downloader.requestBlock(self, self.torrent.info_hash(), x, y)
+        next_missing_piece = downloader.message.next_missing_piece()
+        next_missing_block = downloader.message.next_missing_block(next_missing_piece)
+
+        while next_missing_piece is not -1:
+            while next_missing_block is not -1:
+                downloader.requestBlock(self, self.torrent.info_hash(), next_missing_piece, next_missing_block)
+
+                next_missing_block = downloader.message.next_missing_block(next_missing_piece)
+
+            next_missing_piece = downloader.message.next_missing_piece()
+
+        print("Yay you got a full file!")
+
+        # while piece_missing(bitfield):
+        #     while block_missing(bitfield):
+        #     get_block
+        #     set_block_complete
+        #     set_piece_complete
+        #     print('File Complete') 
+
+        # for x in range(self.torrent.num_pieces() - 1):
+        #     for y in range(8):
+        #         downloader.requestBlock(self, self.torrent.info_hash(), x, y)
 
         # while (downloader.interested):
         #     downloader.downloadNextPiece

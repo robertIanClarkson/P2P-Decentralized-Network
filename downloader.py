@@ -16,6 +16,9 @@ class Downloader:
         self.bitfield_lock = threading.Lock()
         self.file_lock = threading.Lock()
 
+        self.message = Message()
+        message.init_bitfield(torrent.num_pieces())
+
     def requestBlock(self, client, info_hash, piece_index, block_index):
         # request block
         message = {
@@ -26,3 +29,4 @@ class Downloader:
         client.send(message)
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
+        self.message.set_block_to_complete(data['piece_index'], data['block_index'])
