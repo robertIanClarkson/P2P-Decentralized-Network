@@ -24,6 +24,5 @@ class Downloader:
             'block_index': block_index
         }
         client.send(message)
-        block = client.receive()
-        print(block)
-        self.file_manager.flush_block(piece_index, block_index, block) 
+        data = client.receive()
+        self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block']) 
