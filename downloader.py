@@ -25,4 +25,5 @@ class Downloader:
         }
         client.send(message)
         block = client.receive()
+        print(block)
         self.file_manager.flush_block(piece_index, block_index, block) 

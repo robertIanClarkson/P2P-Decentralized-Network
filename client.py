@@ -14,7 +14,7 @@ class Client(object):
         self.clientid = 0
         self.menu = None
 
-        self.torrent = Torrent("age.torrent");
+        self.torrent = Torrent("age.torrent")
 
     def get_client_id(self):
         return self.clientid

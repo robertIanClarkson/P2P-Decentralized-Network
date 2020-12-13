@@ -1,6 +1,7 @@
 import pickle
 from file_manager import FileManager
 from config import Config
+from torrent import *
 
 
 class Uploader:
@@ -28,6 +29,9 @@ class Uploader:
         self.server = server_instance  # needed to use & alter <clients, names, rooms>
         self.clientsocket = clientsocket  # needed for sending and receiving
 
+        self.torrent = Torrent("age.torrent")
+        self.file_manager = FileManager(peer_id=0, torrent=self.torrent)
+
     def send(self, data):
         serialized_data = pickle.dumps(data)
         self.clientsocket.send(serialized_data)
@@ -51,8 +55,11 @@ class Uploader:
             data = self.receive();
             if not data:
                 continue
-                
+
             print(data)
+            block = self.file_manager.get_block(data['piece_index'], data['block_index'], 2048, "age.txt")
+            response = {"piece_index": data['piece_index'], "block_index": data['block_index'], "info_hash": data['info_hash'], "block": block};
+            self.send(response)
 
         # while True:
         #     data = receive
