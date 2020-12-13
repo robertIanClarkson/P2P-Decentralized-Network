@@ -174,7 +174,7 @@ class FileManager:
         :return: the piece
         """
         piece = []
-        piecePointers = self.get_pointers(hash_info=self.torrent.hash_info(), piece_index=piece_index)
+        piecePointers = self.get_pointers(hash_info=self.torrent.info_hash(), piece_index=piece_index)
         tmpFile = open(self.TMP_FILE, mode="r")
         pointerLines = tmpFile.readlines()
         
