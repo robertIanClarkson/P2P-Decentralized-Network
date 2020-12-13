@@ -129,9 +129,11 @@ class FileManager:
         :param piece:
         :return: VOID
         """
-        tempFile = open(self.DATA_FILE, "a")
-        tempFile.write(str(piece_index) + str("\n"))
-        tempFile.close()
+
+        if (piece_index == 177):
+            tempFile = open(self.DATA_FILE, "a")
+            tempFile.write(piece)
+            tempFile.close()
 
     def get_pointers(self, hash_info, piece_index):
         """
