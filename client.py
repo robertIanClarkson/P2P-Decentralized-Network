@@ -53,7 +53,8 @@ class Client(object):
 
         downloader = Downloader(torrent=self.torrent)
 
-        downloader.requestBlock(self, self.torrent.info_hash(), 0, 0)
+        for x in range(5):
+            downloader.requestBlock(self, self.torrent.info_hash(), 0, x)
 
         # while (downloader.interested):
         #     downloader.downloadNextPiece

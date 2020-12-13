@@ -51,19 +51,17 @@ class Uploader:
 
         # main logic
 
-        data = self.receive();
+        while True:
+            data = self.receive();
 
-        print(data)
-        block = self.file_manager.get_block(data['piece_index'], data['block_index'], 2048, "age.txt")
-        response = {"piece_index": data['piece_index'], "block_index": data['block_index'], "info_hash": data['info_hash'], "block": block};
-        self.send(response)
+            if not data:
+                continue
 
-        # while True:
-        #     data = receive
-        #     piece = findPiece(data)
-        #     send(piece)
+            print(data)
+            offset = (data['piece_index'] * 16416) + data['block_index'] * 2048
+            if data['piece_index'] != 0:
+                offset -= 1
 
-        #     if uploadComplete:
-        #         break
-
-        # print "File has been fully uploaded!"
+            block = self.file_manager.get_block(data['piece_index'], offset, 2048, "age.txt")
+            response = {"piece_index": data['piece_index'], "block_index": data['block_index'], "info_hash": data['info_hash'], "block": block};
+            self.send(response)

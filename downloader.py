@@ -25,4 +25,4 @@ class Downloader:
         }
         client.send(message)
         data = client.receive()
-        self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block']) 
+        self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
