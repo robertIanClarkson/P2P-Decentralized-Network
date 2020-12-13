@@ -130,8 +130,7 @@ class FileManager:
         :return: VOID
         """
         tempFile = open(self.DATA_FILE, "a")
-        print(piece_index)
-        tempFile.write(piece)
+        tempFile.write(str(piece_index) + str("\n"))
         tempFile.close()
 
     def get_pointers(self, hash_info, piece_index):
