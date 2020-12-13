@@ -156,7 +156,7 @@ class FileManager:
 
             filePointer = line.split("$$$")[0]
 
-            if pointer == filePointer:
+            if pointer in filePointer:
                 pointers.append(filePointer)
 
             block_index += 1
