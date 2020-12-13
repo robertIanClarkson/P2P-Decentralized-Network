@@ -108,7 +108,7 @@ class Message:
         :param num_pieces: the number of pieces defined in the .torrent file
         :return: Void
         """
-        size_bitfield = math.ceil(num_pieces * 8)
+        size_bitfield = math.ceil(num_pieces / 8)
         spare_bits = (8 * size_bitfield) - num_pieces
         for i in range(size_bitfield - 1):
             piece_bitfield = bitarray(8)
