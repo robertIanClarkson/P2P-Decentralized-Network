@@ -163,8 +163,6 @@ class FileManager:
 
         tempFile.close()
 
-        print("list of pointers is ", pointers)
-
         return pointers
 
     def extract_piece(self, piece_index):
@@ -182,7 +180,7 @@ class FileManager:
             for line in pointerLines:
                 if pointer in line:
                     #we got a hit on a block we need
-                    piece = piece + str(line.split('$$$')[1])
+                    piece = piece + str(line.split('$$$')[1])[:-1]
 
         return piece
 
