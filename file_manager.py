@@ -153,9 +153,6 @@ class FileManager:
 
             filePointer = line.split("$$$")[0]
 
-            print(str(piece_index) + ":" + str(block_index))
-            print(pointer + str(":") + filePointer)
-
             if pointer in filePointer:
                 pointers.append(filePointer)
 
