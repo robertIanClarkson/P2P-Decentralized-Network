@@ -73,6 +73,15 @@ class Client(object):
                 progressbars.update(bar_index=bar_index, value=i * 100)
                 i += work_value
 
+        print("Yay you got a full file!")
+
+        shutil.move('resources/tmp/blocks/blocks.data',
+                    "downloaded/" + str(self.torrent.file_name()))
+
+        shutil.move('resources/tmp/age.tmp', "resources/shared/" +
+                    str(self.torrent.file_name()).split(".")[0] + ".tmp")
+
+
         progressbars.finish()
 
     def run(self):
@@ -82,10 +91,3 @@ class Client(object):
         Work.start(self.work, (progressbars, 0, work_increments,
                           self.torrent.file_name() + ": "))
         
-        print("Yay you got a full file!")
-
-        shutil.move('resources/tmp/blocks/blocks.data',
-                    "downloaded/" + str(self.torrent.file_name()))
-
-        shutil.move('resources/tmp/age.tmp', "resources/shared/" +
-                    str(self.torrent.file_name()).split(".")[0] + ".tmp")
