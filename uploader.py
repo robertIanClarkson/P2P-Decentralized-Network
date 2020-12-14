@@ -2,7 +2,7 @@ import pickle
 from file_manager import FileManager
 from config import Config
 from torrent import *
-
+import time
 
 class Uploader:
 
@@ -33,6 +33,7 @@ class Uploader:
         self.file_manager = FileManager(peer_id=0, torrent=self.torrent)
 
     def send(self, data):
+        time.sleep(.5)
         serialized_data = pickle.dumps(data)
         self.clientsocket.send(serialized_data)
 
