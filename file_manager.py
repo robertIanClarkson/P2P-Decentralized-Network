@@ -187,8 +187,6 @@ class FileManager:
         piecePointers = self.get_pointers(hash_info=self.torrent.info_hash(), piece_index=piece_index)
         tmpFile = open(self.TMP_FILE, mode="r")
         pointerLines = tmpFile.readlines()
-
-        print(str(len(pointerLines)) + str(":") + str(len(piecePointers)))
         
         for pointer in piecePointers:
             for line in pointerLines:
