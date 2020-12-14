@@ -75,6 +75,8 @@ class Client(object):
 
         progressbars.finish()
 
+        progressbars.clear_bar(bar_index=bar_index) 
+
         print("Yay you got a full file!")
 
         shutil.move('resources/tmp/blocks/blocks.data',
