@@ -29,7 +29,6 @@ class Downloader:
             'block_index': block_index
         }
         client.send(message)
-        time.sleep(0.5)
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
         self.message.set_block_to_completed(data['piece_index'], data['block_index'])
