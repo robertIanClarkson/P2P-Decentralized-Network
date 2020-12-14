@@ -4,8 +4,11 @@ import pickle
 from downloader import Downloader
 from torrent import *
 import shutil
+import os
 
 # Robert's Client from TCP Project
+
+
 class Client(object):
     def __init__(self):
         self.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,7 +26,8 @@ class Client(object):
     # connect to the server
     def connect(self, host="127.0.0.1", port=13000):
         self.clientSocket.connect((host, port))  # connect is done here
-        print("(C) Successfully connected to server at {host}/{port}".format(host=host, port=port))
+        print(
+            "(C) Successfully connected to server at {host}/{port}".format(host=host, port=port))
 
         self.run()
 
@@ -53,18 +57,23 @@ class Client(object):
 
         while downloader.message.next_missing_piece() is not -1:
             while downloader.message.next_missing_block(downloader.message.next_missing_piece()) is not -1:
-                downloader.requestBlock(self, self.torrent.info_hash(), downloader.message.next_missing_piece(), downloader.message.next_missing_block(downloader.message.next_missing_piece()))
+                downloader.requestBlock(self, self.torrent.info_hash(), downloader.message.next_missing_piece(
+                ), downloader.message.next_missing_block(downloader.message.next_missing_piece()))
 
         print("Yay you got a full file!")
 
-        shutil.move('resources/tmp/blocks/blocks.data', str('resources/shared/') + self.torrent.file_name())
+        shutil.move('resources/tmp/blocks/blocks.data',
+                    "downloaded/" + str(self.torrent.file_name()))
+        
+        shutil.move('resources/tmp/age.tmp', "resources/shared/" +
+                    str(self.torrent.file_name()).split(".")[0] + ".tmp")
 
         # while piece_missing(bitfield):
         #     while block_missing(bitfield):
         #     get_block
         #     set_block_complete
         #     set_piece_complete
-        #     print('File Complete') 
+        #     print('File Complete')
 
         # for x in range(self.torrent.num_pieces() - 1):
         #     for y in range(8):
