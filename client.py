@@ -56,6 +56,8 @@ class Client(object):
 
         print("Yay you got a full file!")
 
+        shutil.move('resources/tmp/blocks/blocks.data', str('resources/shared/') + self.torrent.file_name())
+
         # while piece_missing(bitfield):
         #     while block_missing(bitfield):
         #     get_block

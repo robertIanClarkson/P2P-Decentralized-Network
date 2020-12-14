@@ -38,6 +38,9 @@ class Uploader:
 
     def receive(self, max_alloc_mem=4096):
         serialized_data = self.clientsocket.recv(max_alloc_mem)
+
+        if not serialized_data:
+            return " "
         data = pickle.loads(serialized_data)
         return data
 
@@ -50,8 +53,8 @@ class Uploader:
         while True:
             data = self.receive();
 
-            if not data:
-                continue
+            if data == " " or not data:
+                break
 
             print(data)
             offset = (data['piece_index'] * 16416) + data['block_index'] * 2048
