@@ -73,6 +73,8 @@ class Client(object):
                 progressbars.update(bar_index=bar_index, value=i * 100)
                 i += work_value
 
+        progressbars.finish()
+
         print("Yay you got a full file!")
 
         shutil.move('resources/tmp/blocks/blocks.data',
@@ -80,9 +82,6 @@ class Client(object):
 
         shutil.move('resources/tmp/age.tmp', "resources/shared/" +
                     str(self.torrent.file_name()).split(".")[0] + ".tmp")
-
-
-        progressbars.finish()
 
     def run(self):
         work_increments = 1/(self.torrent.num_pieces() * 8)
