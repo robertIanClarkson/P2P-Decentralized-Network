@@ -31,8 +31,13 @@ class Downloader:
         client.send(message)
 
         # !!! IMPORTANT !!!
-        # Delay created for testing on a single computer
-        time.sleep(2)
+        # Testing with a slow connection, lessen for a faster download
+        # 10 seconds = sending bits through the mail
+        # 5 seconds = sending bits with a pigeon
+        # 1 second = using dial up
+        # 0 seconds = gambling
+        # -1 seconds = fiber optics
+        time.sleep(1)
 
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
