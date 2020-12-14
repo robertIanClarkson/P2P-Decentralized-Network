@@ -3,6 +3,7 @@ import socket
 import pickle
 from downloader import Downloader
 from torrent import *
+import shutil
 
 # Robert's Client from TCP Project
 class Client(object):
