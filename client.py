@@ -33,9 +33,32 @@ class Client(object):
 
     # receive data from CH
     def receive(self, MAX_BUFFER_SIZE=8192):
-        data_from_client = self.clientSocket.recv(MAX_BUFFER_SIZE)
-        data = pickle.loads(data_from_client)
+
+        # data_from_client = self.clientSocket.recv(MAX_BUFFER_SIZE)
+        # data = pickle.loads(data_from_client)
+
+        data = b""
+        while True:
+            packet = self.clientSocket.recv(4096)
+            if not packet: break
+            data += packet
+
+        data_arr = pickle.loads(data)
+        # print (data_arr)
+        # s.close()
         return data
+
+    """
+    data = b""
+    while True:
+        packet = s.recv(4096)
+        if not packet: break
+        data += packet
+
+    data_arr = pickle.loads(data)
+    print (data_arr)
+    s.close()
+    """
 
     # close the client
     def close(self):
