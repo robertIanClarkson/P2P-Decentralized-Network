@@ -37,6 +37,9 @@ class Downloader:
         # 1 second = using dial up
         # 0 seconds = gambling
         # -1 seconds = fiber optics
+        # Ramy: Please don't leave this comment in
+        # William: I don't think he will worry about that
+        
         time.sleep(1)
 
         data = client.receive()
