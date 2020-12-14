@@ -8,6 +8,7 @@ from downloader import Downloader
 from threading import Thread
 import socket
 import uuid
+from requests import get
 
 # CSC645 Computer Networks
 # Lab 8 Solution: peer.py
@@ -35,7 +36,13 @@ class Peer(Server):
         Class constructor
         :param self._ip: used when need to use the ip assigned by LAN
         """
-        self._ip = socket.gethostbyname(socket.gethostname());
+        # get local ip
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.s.connect(("8.8.8.8", 80)) 
+        self.s.getsockname()[0]
+        self._ip = self.s.getsockname()[0]
+
+        # self._ip = socket.gethostbyname(socket.gethostname())
         self.server = Server(self._ip, self.SERVER_PORT)  # inherits methods from the server
         self.id = uuid.uuid4()  # creates unique id for the peer
         self.role = role
