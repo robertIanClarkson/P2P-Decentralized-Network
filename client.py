@@ -35,7 +35,7 @@ class Client(object):
     def receive(self, MAX_BUFFER_SIZE=8192):
         try:
             data_from_client = self.clientSocket.recv(MAX_BUFFER_SIZE)
-            if data_from_client:
+            if not data_from_client:
                 return
             data = pickle.loads(data_from_client)
             return data
