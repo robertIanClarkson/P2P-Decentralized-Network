@@ -36,4 +36,4 @@ class Downloader:
         if not self.message.is_piece_missing(data['piece_index']):
             piece = self.file_manager.extract_piece(data['piece_index'])
             self.file_manager.flush_piece(data['piece_index'], piece)
-            print("Wrote piece: " , str(data['piece_index']))
+            # print("Wrote piece: " , str(data['piece_index']))

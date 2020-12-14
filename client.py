@@ -70,7 +70,7 @@ class Client(object):
             while downloader.message.next_missing_block(downloader.message.next_missing_piece()) is not -1:
                 downloader.requestBlock(self, self.torrent.info_hash(), downloader.message.next_missing_piece(
                 ), downloader.message.next_missing_block(downloader.message.next_missing_piece()))
-                progressbars.update(bar_index=bar_index, value=i)
+                progressbars.update(bar_index=bar_index, value=i * 100)
                 i += work_value
 
         progressbars.finish()
