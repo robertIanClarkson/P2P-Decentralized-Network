@@ -45,10 +45,6 @@ class Uploader:
         # client ID
         self.send(self.client_id)
 
-        # test data
-        data = self.receive();
-        print(data)
-
         # main logic
 
         while True:

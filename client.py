@@ -46,9 +46,6 @@ class Client(object):
         receiveData = self.receive()
         print(receiveData)
 
-        # test data
-        self.send("HELLO")
-
         # main logic
 
         downloader = Downloader(torrent=self.torrent)
