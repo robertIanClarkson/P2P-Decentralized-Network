@@ -32,7 +32,7 @@ class Downloader:
 
         # !!! IMPORTANT !!!
         # Delay created for testing on a single computer
-        time.sleep(0.5)
+        time.sleep(2)
 
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
