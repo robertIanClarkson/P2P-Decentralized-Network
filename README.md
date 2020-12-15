@@ -1,16 +1,14 @@
 # P2P Decentralized Network with BitTorrent Protocol
 
-Please use this README file to provide the following documentation for this project:
-
 * Group: 05
 * Benjamin Lewis | 915173797
 * William Lew | 917780921
 * Robert Clarkson
 * Ramy Fekry
 * John Freirez | 920184756
-*
+
 # Project Description:
-* Implemented a Bittorrent (P2P) file sharing network protocol. Establish connection/communication between Tracker and Peer using UDP sockets and used TCP to communicate between peers to upload/download. Implemented a file manager that handles the transfer of blocks/pieces of data thats being uploaded/downloaded. 
+* This project was an Implementation of a BitTorrent P2P file sharing network protocol. We established connection using a UDP socket between the Trackers, then used TCP sockets to communicate between other Peers to upload and download files. We implemented a file manager to support the uploading and downloading process by arranging fragmented data. The file manager breaks down the file as blocks/pieces of data that's being transferred between peers, then reconstructs the blocks/pieces at the destination. 
 
 # Other libraries used:
 * time  
@@ -18,12 +16,18 @@ Please use this README file to provide the following documentation for this proj
 * htbps   ( to show the progress bar uploading )
 
 # Python version and compatibility issues:
-* Python version 3.8 
-* 
-* Clear and specific instructions about how to run your project. If your project does not run or contains errors, you'll get a 0 in the project no matter how much work you put on it. So, test your code properly and make sure that it runs without errors.
-* 
-*
-* A few sentences about all the challenges you found during the implementation of this project and how you overcame them. Please be honest here. 
+* Python version 3.8, "anything lower than 3.8 might cause an error" 
+
+# How to run
+* To properly test and run you must have two different machines / computers
+* Both will have to run peer.py
+
+```python
+python peer.py
+```
+* please check the video recording 
+# Challenges 
+* Needs multiple machine to properly test, weren't able to test with just one, even tried to use a VM to test but still no luck we needed a different machine. 
 
 ## Note that failure to provide the above docs will result in a 30% deduction in your final grade for this project. 
 
