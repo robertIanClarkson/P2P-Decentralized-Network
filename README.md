@@ -3,13 +3,26 @@
 Please use this README file to provide the following documentation for this project:
 
 * Group: 05
-* John Freirez | 920184756
 * Benjamin Lewis | 915173797
 * William Lew | 917780921
-* General description of the project (a few sentences)
-* If you used external Python modules/libraries. Provide a requirements.txt file  
-* Python version and compatibility issues (if any)
+* Robert Clarkson
+* Ramy Fekry
+* John Freirez | 920184756
+*
+# Project Description:
+* Implemented a Bittorrent (P2P) file sharing network protocol. Establish connection/communication between Tracker and Peer using UDP sockets and used TCP to communicate between peers to upload/download. Implemented a file manager that handles the transfer of blocks/pieces of data thats being uploaded/downloaded. 
+
+# Other libraries used:
+* time  
+* shutil  ( to move file to another directory )
+* htbps   ( to show the progress bar uploading )
+
+# Python version and compatibility issues:
+* Python version 3.8 
+* 
 * Clear and specific instructions about how to run your project. If your project does not run or contains errors, you'll get a 0 in the project no matter how much work you put on it. So, test your code properly and make sure that it runs without errors.
+* 
+*
 * A few sentences about all the challenges you found during the implementation of this project and how you overcame them. Please be honest here. 
 
 ## Note that failure to provide the above docs will result in a 30% deduction in your final grade for this project. 
