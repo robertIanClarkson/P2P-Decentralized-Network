@@ -8,7 +8,6 @@ from downloader import Downloader
 from threading import Thread
 import socket
 import uuid
-from requests import get
 
 # CSC645 Computer Networks
 # Lab 8 Solution: peer.py
