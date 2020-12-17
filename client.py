@@ -5,6 +5,7 @@ from downloader import Downloader
 from torrent import *
 import shutil
 import os
+from htpbs import ProgressBars, Work
 
 # Robert's Client from TCP Project
 
@@ -46,7 +47,16 @@ class Client(object):
     def close(self):
         self.clientSocket.close()
 
-    def run(self):
+    def work(self, progressbars, bar_index, work_value, work_name):
+        """
+
+        :param progressbars: the progressbar obkect
+        :param bar_index: a integer representing the index of the bae
+        :param work_value: a value for time.sleep() to simulate different progress bars rates
+        :param work_name: the name of the work
+        :return: VOID
+        """
+        progressbars.set_bar_prefix(bar_index=bar_index, prefix=work_name)
         # client ID
         receiveData = self.receive()
         print(receiveData)
@@ -55,33 +65,30 @@ class Client(object):
 
         downloader = Downloader(torrent=self.torrent)
 
+        i = 0
         while downloader.message.next_missing_piece() is not -1:
             while downloader.message.next_missing_block(downloader.message.next_missing_piece()) is not -1:
                 downloader.requestBlock(self, self.torrent.info_hash(), downloader.message.next_missing_piece(
                 ), downloader.message.next_missing_block(downloader.message.next_missing_piece()))
+                progressbars.update(bar_index=bar_index, value=i * 100)
+                i += work_value
+
+        progressbars.finish()
+
+        progressbars.clear_bar(bar_index=bar_index) 
 
         print("Yay you got a full file!")
 
         shutil.move('resources/tmp/blocks/blocks.data',
                     "downloaded/" + str(self.torrent.file_name()))
-        
+
         shutil.move('resources/tmp/age.tmp', "resources/shared/" +
                     str(self.torrent.file_name()).split(".")[0] + ".tmp")
 
-        # while piece_missing(bitfield):
-        #     while block_missing(bitfield):
-        #     get_block
-        #     set_block_complete
-        #     set_piece_complete
-        #     print('File Complete')
-
-        # for x in range(self.torrent.num_pieces() - 1):
-        #     for y in range(8):
-        #         downloader.requestBlock(self, self.torrent.info_hash(), x, y)
-
-        # while (downloader.interested):
-        #     downloader.downloadNextPiece
-
-        # downloader.compileAllPieces
-
-        # print("File has been fully downloaded")
+    def run(self):
+        work_increments = 1/(self.torrent.num_pieces() * 8)
+        progressbars = ProgressBars(num_bars=1)
+        
+        Work.start(self.work, (progressbars, 0, work_increments,
+                          self.torrent.file_name() + ": "))
+        

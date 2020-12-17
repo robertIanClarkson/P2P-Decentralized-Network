@@ -29,6 +29,19 @@ class Downloader:
             'block_index': block_index
         }
         client.send(message)
+
+        # !!! IMPORTANT !!!
+        # Testing with a slow connection, lessen for a faster download
+        # 10 seconds = sending bits through the mail
+        # 5 seconds = sending bits with a pigeon
+        # 1 second = using dial up
+        # 0 seconds = gambling
+        # -1 seconds = fiber optics
+        # Ramy: Please don't leave this comment in
+        # William: I don't think he will worry about that
+        
+        time.sleep(1)
+
         data = client.receive()
         self.file_manager.flush_block(data['piece_index'], data['block_index'], data['block'])
         self.message.set_block_to_completed(data['piece_index'], data['block_index'])
@@ -36,4 +49,4 @@ class Downloader:
         if not self.message.is_piece_missing(data['piece_index']):
             piece = self.file_manager.extract_piece(data['piece_index'])
             self.file_manager.flush_piece(data['piece_index'], piece)
-            print("Wrote piece: " , str(data['piece_index']))
+            # print("Wrote piece: " , str(data['piece_index']))
