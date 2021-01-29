@@ -10,6 +10,7 @@ Contributors:
 
 # Recording
 * file: `screen_recording.mp4`
+* link: https://youtu.be/iH-XQL5xXY8
 
 # Project Description:
 * This project was an Implementation of a BitTorrent P2P file sharing network protocol. We established connection using a UDP socket between the Trackers, then used TCP sockets to communicate between other Peers to upload and download files. We implemented a file manager to support the uploading and downloading process by arranging fragmented data. The file manager breaks down the file as blocks/pieces of data that's being transferred between peers, then reconstructs the blocks/pieces at the destination. 
