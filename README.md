@@ -2,11 +2,11 @@
 
 Contributors:
 
-* Benjamin Lewis | 915173797
-* William Lew | 917780921
-* Robert Clarkson | 915433914
-* Ramy Fekry | 917013453
-* John Freirez | 920184756
+* Ramy Fekry
+* Robert Clarkson
+* William Lew
+* Benjamin Lewis
+* John Freirez
 
 # Recording
 * file: `screen_recording.mp4`
